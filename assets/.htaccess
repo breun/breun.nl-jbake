@@ -1,0 +1,22 @@
+# Use UTF-8
+AddDefaultCharset utf-8
+
+# Set a mime type for .m4a (AAC) files
+AddType audio/x-m4a m4a
+
+# Enable mod_rewrite
+RewriteEngine on
+
+# Force HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{SERVER_NAME}/$1 [R=301,L]
+
+### breun.nl
+
+# Redirect www.breun.nl to breun.nl
+RewriteCond %{HTTP_HOST} ^www\.breun\.nl$ [NC]
+RewriteRule ^(.*)$ https://breun.nl/$1 [R=301,L]
+
+# Redirect old breun.nl Atom/RSS URLs to /feed.xml
+RewriteCond %{HTTP_HOST} ^breun\.nl$ [NC]
+RewriteRule ^(atom|rss)\.xml$ /feed.xml [R=301,L]
